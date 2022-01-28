@@ -17,7 +17,10 @@ public class UserController {
     @Autowired private UserService service;
 
     @GetMapping("/login")
-    public void login(@ModelAttribute("userEntity") UserEntity userEntity) {}
+    public void login(@ModelAttribute("userEntity") UserEntity userEntity) {
+        userEntity.setUid("micro");
+        userEntity.setUpw("1212");
+    }
 
     @PostMapping("/login")
     public String loginProc(UserEntity entity) {

@@ -21,13 +21,14 @@
                                     <span th:if="${session.loginUser != null}">
                                         <li><a href="/user/logout" class="text-white">Logout</a></li>
                                     </span>
-                                    <li><a href="/board/list?icategory=1" class="text-white">게시판1</a></li>
-                                    <li><a href="/board/list?icategory=2" class="text-white">게시판2</a></li>
-                                    <li><a href="/board/list?icategory=3" class="text-white">게시판3</a></li>
+                                    <li th:each="item : ${@menus}">
+                                        <a th:href="@{/board/list(icategory=${item.icategory})}" class="text-white" th:text="${item.nm}"></a>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
                     </div>
+                    ${menus}
                 </div>
                 <div class="navbar navbar-dark bg-dark shadow-sm">
                     <div class="container">
