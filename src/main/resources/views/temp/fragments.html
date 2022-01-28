@@ -15,11 +15,11 @@
                                 <h4 class="text-white">Menus</h4>
                                 <ul class="list-unstyled">
                                     <span th:if="${session.loginUser == null}">
-                                        <li><a href="/user/login" class="text-white">Login</a></li>
-                                        <li><a href="/user/join" class="text-white">Join</a></li>
+                                        <li><a th:href="@{/user/login}" class="text-white">Login</a></li>
+                                        <li><a th:href="@{/user/join}" class="text-white">Join</a></li>
                                     </span>
                                     <span th:if="${session.loginUser != null}">
-                                        <li><a href="/user/logout" class="text-white">Logout</a></li>
+                                        <li><a th:href="@{/user/logout}" class="text-white">Logout</a></li>
                                     </span>
                                     <li th:each="item : ${@menus}">
                                         <a th:href="@{/board/list(icategory=${item.icategory})}" class="text-white" th:text="${item.nm}"></a>
@@ -28,11 +28,10 @@
                             </div>
                         </div>
                     </div>
-                    ${menus}
                 </div>
                 <div class="navbar navbar-dark bg-dark shadow-sm">
                     <div class="container">
-                        <a href="/" class="navbar-brand d-flex align-items-center">
+                        <a th:href="@{/}" class="navbar-brand d-flex align-items-center">
                             <!-- svg -->
                             <strong>Board</strong>
                         </a>
