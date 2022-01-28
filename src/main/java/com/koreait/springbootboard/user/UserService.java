@@ -6,11 +6,26 @@ import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.rmi.server.ExportException;
+
 @Service
 public class UserService {
 
     @Autowired private UserMapper mapper;
     @Autowired private MyUserUtils userUtils;
+
+    public int join(UserEntity entity) {
+        //유효성 검사
+
+        String hashedUpw = BCrypt.hashpw(entity.getUpw(), BCrypt.gensalt());
+        entity.setUpw(hashedUpw);
+        try {
+            return mapper.insUser(entity);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
 
     //0: DB에러, 1: 로그인 성공, 2:아이디 없음, 3:비밀번호 다름
     public int login(UserEntity entity) {

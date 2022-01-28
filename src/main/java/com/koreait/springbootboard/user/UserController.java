@@ -37,4 +37,11 @@ public class UserController {
 
     @GetMapping("/join")
     public void join(@ModelAttribute UserEntity userEntity) {}
+
+    @PostMapping("/join")
+    public String joinProc(UserEntity userEntity) {
+        System.out.println(userEntity);
+        int result = service.join(userEntity);
+        return "redirect:login";
+    }
 }
