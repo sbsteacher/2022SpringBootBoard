@@ -1,0 +1,16 @@
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="temp/thymeleaf_layout">
+
+<head>
+    <title>리스트</title>
+    <script defer th:src="@{/js/board/list.js}"></script>
+</head>
+
+<th:block layout:fragment="content">
+    <!-- param은 th:text, th:with을 제외하고는 바로 접근이 안 되는 것 같음 -->
+    <div id="data" th:with="icate=${param.icategory}" th:data-icategory="${icate}"></div>
+    <div id="board_list"></div>
+
+</th:block>
