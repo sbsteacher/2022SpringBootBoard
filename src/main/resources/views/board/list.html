@@ -11,6 +11,26 @@
 <th:block layout:fragment="content">
     <!-- param은 th:text, th:with을 제외하고는 바로 접근이 안 되는 것 같음 -->
     <div id="data" th:with="icate=${param.icategory}" th:data-icategory="${icate}"></div>
-    <div id="board_list"></div>
+    <div id="board_list">
+
+        <table class="table table-hover caption-top">
+            <caption>테이블 이름</caption>
+            <thead>
+                <tr class="table-secondary">
+                    <th>번호</th>
+                    <th>제목</th>
+                    <th>글쓴이</th>
+                    <th>조회수</th>
+                    <th>작성일</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+
+    </div>
+
+
+
 
 </th:block>
