@@ -28,4 +28,6 @@ public class BoardRestController {
         dto.setIboard(iboard);
         return service.selBoard(dto);
     }
+
+    
 }

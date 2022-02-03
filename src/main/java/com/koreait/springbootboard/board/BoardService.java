@@ -1,5 +1,6 @@
 package com.koreait.springbootboard.board;
 
+import com.koreait.springbootboard.ResultVo;
 import com.koreait.springbootboard.board.model.BoardDto;
 import com.koreait.springbootboard.board.model.BoardVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,5 +19,9 @@ public class BoardService {
 
     public BoardVo selBoard(BoardDto dto) {
         return mapper.selBoard(dto);
+    }
+
+    public ResultVo selMaxPageVal(BoardDto dto) {
+        return mapper.selMaxPageVal(dto);
     }
 }
