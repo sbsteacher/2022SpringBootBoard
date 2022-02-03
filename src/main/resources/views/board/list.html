@@ -14,7 +14,10 @@
     <div id="board_list">
 
         <table class="table table-hover caption-top">
-            <caption>테이블 이름</caption>
+            <th:block th:each="item : ${@menus}">
+                <caption th:if="${#strings.equals(param.icategory, #strings.toString(item.icategory))}"
+                          th:text="${item.nm}"></caption>
+            </th:block>
             <thead>
                 <tr class="table-secondary">
                     <th>번호</th>

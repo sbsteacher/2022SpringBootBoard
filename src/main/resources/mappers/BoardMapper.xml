@@ -26,4 +26,9 @@
          WHERE A.isdel = 0
            AND A.iboard = ${iboard}
     </select>
+
+    <select id="selMaxPageVal" resultType="_int">
+
+        ${recordCount}
+    </select>
 </mapper>
