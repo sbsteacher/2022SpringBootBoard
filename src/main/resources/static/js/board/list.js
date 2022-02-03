@@ -1,13 +1,16 @@
 (function(){
     'use strict'
     let currentPage = 1; //현재 페이지
-    const recordCount = 10; //레코드 수
+    let maxPage = 1;
+    const recordCount = 2; //레코드 수
 
-    const boardListElem = document.querySelector('#board_list');
-    const dataElem = document.querySelector('#data');
 
     const searchParams = new URL(window.location.href).searchParams;
     const icategory = searchParams.get('icategory');
+
+    const dataElem = document.querySelector('#data');
+    const boardListElem = document.querySelector('#board_list');
+    const pageContainerElem = document.querySelector('#page_container');
 
     //글 리스트 정보 가져오기
     const getList = () => {
@@ -19,7 +22,23 @@
 
     //마지막 페이지 값
     const getMaxPageVal = () => {
+        myFetch.get('/ajax/board/maxpage', data => {
+            console.log(data.result);
+            maxPage = data.result;
+            makePaging();
+        }, { icategory, recordCount });
+    }
+    getMaxPageVal();
 
+    const makePaging = () => {
+        const ulElem = pageContainerElem.querySelector('nav > ul');
+
+        for(let i=1; i<=maxPage; i++) {
+            const liElem = document.createElement('li');
+            liElem.className = 'page-item page-link pointer';
+            liElem.innerText = i;
+            ulElem.appendChild(liElem);
+        }
     }
 
     //레코드 만들기
