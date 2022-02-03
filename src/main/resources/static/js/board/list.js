@@ -2,8 +2,8 @@
     'use strict'
     let currentPage = 1; //현재 페이지
     let maxPage = 1;
-    const recordCount = 2; //레코드 수
-
+    const recordCount = 3; //레코드 수
+    const pagingCount = 5; //페이징의 페이징 수
 
     const searchParams = new URL(window.location.href).searchParams;
     const icategory = searchParams.get('icategory');
@@ -32,16 +32,49 @@
 
     const makePaging = () => {
         const ulElem = pageContainerElem.querySelector('nav > ul');
+        ulElem.innerHTML = null;
 
-        for(let i=1; i<=maxPage; i++) {
+        const calcPage = parseInt((currentPage - 1) / pagingCount);
+        const startPage = (calcPage * pagingCount) + 1;
+        const lastPage = (calcPage + 1) * pagingCount;
+
+        if(startPage > 1) {
             const liElem = document.createElement('li');
-            liElem.className = 'page-item page-link pointer';
-            liElem.innerText = i;
             ulElem.appendChild(liElem);
 
+            liElem.className = 'page-item page-link pointer';
+            liElem.innerHTML = '&lt;';
             liElem.addEventListener('click', e => {
-               currentPage = i;
-               getList();
+                currentPage = startPage - 1;
+                getList();
+                makePaging();
+            })
+        }
+
+        for(let i=startPage; i<=(lastPage > maxPage ? maxPage : lastPage); i++) {
+            const liElem = document.createElement('li');
+            ulElem.appendChild(liElem);
+
+            liElem.className = 'page-item page-link pointer';
+            liElem.innerText = i;
+            liElem.addEventListener('click', e => {
+                if(currentPage != i) {
+                    currentPage = i;
+                    getList();
+                }
+            });
+        }
+
+        if(maxPage > lastPage) {
+            const liElem = document.createElement('li');
+            ulElem.appendChild(liElem);
+
+            liElem.className = 'page-item page-link pointer';
+            liElem.innerHTML = '&gt;';
+            liElem.addEventListener('click', e => {
+                currentPage = lastPage + 1;
+                getList();
+                makePaging();
             });
         }
     }
