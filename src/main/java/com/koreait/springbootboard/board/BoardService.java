@@ -14,6 +14,9 @@ public class BoardService {
     @Autowired private BoardMapper mapper;
 
     public List<BoardVo> selBoardList(BoardDto dto) {
+        int startIdx = (dto.getCurrentPage() - 1) * dto.getRecordCount();
+        if(startIdx < 0) { startIdx = 0; }
+        dto.setStartIdx(startIdx);
         return mapper.selBoardList(dto);
     }
 

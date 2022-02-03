@@ -15,6 +15,7 @@
         WHERE A.isdel = 0
           AND A.icategory = ${icategory}
         ORDER BY A.iboard DESC
+        LIMIT ${startIdx}, ${recordCount}
     </select>
 
     <select id="selBoard" resultType="BoardVo">

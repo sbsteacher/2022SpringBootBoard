@@ -17,7 +17,7 @@
         myFetch.get(`/ajax/board/${icategory}`, list => {
            console.log(list);
            makeRecodeList(list);
-        });
+        }, { currentPage, recordCount });
     }
 
     //마지막 페이지 값
@@ -38,13 +38,18 @@
             liElem.className = 'page-item page-link pointer';
             liElem.innerText = i;
             ulElem.appendChild(liElem);
+
+            liElem.addEventListener('click', e => {
+               currentPage = i;
+               getList();
+            });
         }
     }
 
     //레코드 만들기
     const makeRecodeList = list => {
         const tbodyElem = boardListElem.querySelector('table tbody');
-        console.log(tbodyElem);
+        tbodyElem.innerHTML = null;
 
         list.forEach(item => {
             const trElem = document.createElement('tr');
