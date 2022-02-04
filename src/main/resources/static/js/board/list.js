@@ -2,7 +2,7 @@
     'use strict'
     let currentPage = 1; //현재 페이지
     let maxPage = 1;
-    const recordCount = 3; //레코드 수
+    const recordCount = 10; //레코드 수
     const pagingCount = 5; //페이징의 페이징 수
 
     const searchParams = new URL(window.location.href).searchParams;
@@ -34,6 +34,7 @@
     const makePaging = () => {
 
         ulElem.innerHTML = null;
+
 
         const calcPage = parseInt((currentPage - 1) / pagingCount);
         const startPage = (calcPage * pagingCount) + 1;
@@ -91,6 +92,9 @@
                 <td>${item.hits}</td>
                 <td>${item.rdt}</td>
             `;
+            trElem.addEventListener('click', e => {
+               location.href = `/board/detail?iboard=${item.iboard}`;
+            });
         });
     }
     getList();
