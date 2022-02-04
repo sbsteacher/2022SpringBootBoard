@@ -11,6 +11,7 @@
     const dataElem = document.querySelector('#data');
     const boardListElem = document.querySelector('#board_list');
     const pageContainerElem = document.querySelector('#page_container');
+    const ulElem = pageContainerElem.querySelector('nav > ul');
 
     //글 리스트 정보 가져오기
     const getList = () => {
@@ -20,7 +21,7 @@
         }, { currentPage, recordCount });
     }
 
-    //마지막 페이지 값
+    //마지막 페이지 값 (once)
     const getMaxPageVal = () => {
         myFetch.get('/ajax/board/maxpage', data => {
             console.log(data.result);
@@ -31,7 +32,7 @@
     getMaxPageVal();
 
     const makePaging = () => {
-        const ulElem = pageContainerElem.querySelector('nav > ul');
+
         ulElem.innerHTML = null;
 
         const calcPage = parseInt((currentPage - 1) / pagingCount);
@@ -39,26 +40,16 @@
         const lastPage = (calcPage + 1) * pagingCount;
 
         if(startPage > 1) {
-            const liElem = document.createElement('li');
-            ulElem.appendChild(liElem);
-
-            liElem.className = 'page-item page-link pointer';
-            liElem.innerHTML = '&lt;';
-            liElem.addEventListener('click', e => {
+            makePagingItem('&lt;', () => {
                 currentPage = startPage - 1;
                 getList();
                 makePaging();
-            })
+            });
         }
 
         for(let i=startPage; i<=(lastPage > maxPage ? maxPage : lastPage); i++) {
-            const liElem = document.createElement('li');
-            ulElem.appendChild(liElem);
-
-            liElem.className = 'page-item page-link pointer';
-            liElem.innerText = i;
-            liElem.addEventListener('click', e => {
-                if(currentPage != i) {
+            makePagingItem(i, () => {
+                if(currentPage !== i) {
                     currentPage = i;
                     getList();
                 }
@@ -66,17 +57,21 @@
         }
 
         if(maxPage > lastPage) {
-            const liElem = document.createElement('li');
-            ulElem.appendChild(liElem);
-
-            liElem.className = 'page-item page-link pointer';
-            liElem.innerHTML = '&gt;';
-            liElem.addEventListener('click', e => {
+            makePagingItem('&gt;', () => {
                 currentPage = lastPage + 1;
                 getList();
                 makePaging();
             });
         }
+    }
+
+    //페이징 item 만들기
+    const makePagingItem = (val, cb) => {
+        const liElem = document.createElement('li');
+        liElem.className = 'page-item page-link pointer';
+        liElem.innerHTML = val;
+        liElem.addEventListener('click', cb);
+        ulElem.appendChild(liElem);
     }
 
     //레코드 만들기
