@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 public class CommentService {
     @Autowired private CommentMapper mapper;
     @Autowired private MyUserUtils myUserUtils;
-    
+
     ResultVo insComment(BoardCommentEntity entity) {
         entity.setIuser(myUserUtils.getLoginUserPk());
         int result = mapper.insComment(entity);
