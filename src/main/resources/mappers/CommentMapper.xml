@@ -7,4 +7,13 @@
         VALUES
         (${iboard}, ${iuser}, #{ctnt})
     </insert>
+
+    <select id="selCommentList" resultType="BoardCommentVo">
+        SELECT A.*, B.nm AS username
+          FROM t_board_cmt A
+          LEFT JOIN t_user B
+            ON A.iuser = B.iuser
+         WHERE A.iboard = ${iboard}
+         ORDER BY icmt
+    </select>
 </mapper>

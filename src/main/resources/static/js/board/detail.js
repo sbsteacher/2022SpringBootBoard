@@ -5,11 +5,10 @@
     const iboard = searchParams.get('iboard');
 
     const boardDetailElem = document.querySelector('#board_detail');
-
     const commentFormContainerElem = document.querySelector('#comment_form_container');
+    const commentListElem = document.querySelector('#comment_list');
 
-
-
+    //글 디테일 데이터 가져오기
     const getData = () => {
         fetch(`/board/detail_item?iboard=${iboard}`)
             .then(res => res.text())
@@ -20,6 +19,32 @@
     }
     getData();
 
+    //댓글 리스트
+    const getCommentList = () => {
+        myFetch.get('/ajax/comment', list => {
+            console.log(list);
+            makeCommentRecordList(list);
+        }, { iboard });
+    }
+    getCommentList();
+
+    const makeCommentRecordList = list => {
+        const tbodyElem = commentListElem.querySelector('table > tbody');
+
+        list.forEach(item => {
+            const trElem = document.createElement('tr');
+            trElem.innerHTML = `
+                <td>${item.icmt}</td>
+                <td>${item.ctnt}</td>
+                <td>${item.username}</td>
+                <td>${item.rdt}</td>
+                <td></td>
+            `;
+            tbodyElem.appendChild(trElem);
+        });
+    }
+
+    //댓글 입력 폼
     if(commentFormContainerElem) {
         const commentSubmitBtnElem = commentFormContainerElem.querySelector('button[name="comment_submit"]');
         const commentCtntInputElem = commentFormContainerElem.querySelector('input[name="ctnt"]');
@@ -44,9 +69,5 @@
                 }
             }, param);
         });
-
-
     }
-
-
 })();
