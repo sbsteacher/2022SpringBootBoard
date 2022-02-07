@@ -8,7 +8,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 @Component
-public class AuthenticationFacadeImpl {
+public class AuthenticationFacade {
 
     @Autowired private UserMapper mapper;
 

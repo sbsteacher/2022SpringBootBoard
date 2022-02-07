@@ -22,6 +22,7 @@ public class UserController {
         userEntity.setUpw("1212");
     }
 
+    /*
     @PostMapping("/login")
     public String loginProc(UserEntity entity) {
         int result = service.login(entity);
@@ -29,11 +30,14 @@ public class UserController {
         return "redirect:/";
     }
 
+
     @GetMapping("/logout")
     public String logoutProc(HttpSession hs) {
         hs.invalidate();
         return "redirect:/";
     }
+  */
+
 
     @GetMapping("/join")
     public void join(@ModelAttribute UserEntity userEntity) {}

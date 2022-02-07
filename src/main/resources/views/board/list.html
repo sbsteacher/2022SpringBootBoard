@@ -34,7 +34,9 @@
         </table>
     </div>
     <div sec:authorize="isAuthenticated()">
-        <a th:href="@{/board/write(icategory=${param.icategory})}"><button class="btn btn-primary" type="submit">글쓰기</button></a>
+        <a th:href="@{/board/write(icategory=${param.icategory})}">
+            <button class="btn btn-primary" type="submit">글쓰기</button>
+        </a>
     </div>
     <div id="page_container">
         <nav>

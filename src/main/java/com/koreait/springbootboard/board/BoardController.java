@@ -27,13 +27,11 @@ public class BoardController {
     }
 
     @GetMapping("/write")
-    public void write(@ModelAttribute("entity") BoardEntity entity) {
-        System.out.println(entity);
-    }
+    public void write(@ModelAttribute("entity") BoardEntity entity) {}
 
     @PostMapping("/write")
     public String writeProc(BoardEntity entity) {
-        service.insBoard(entity);
+        int result = service.insBoard(entity);
         return "redirect:/board/list?icategory=" + entity.getIcategory();
     }
 }
