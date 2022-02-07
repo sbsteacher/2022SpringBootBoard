@@ -1,0 +1,5 @@
+
+-시큐리티 설정 참고
+https://spring.io/guides/gs/securing-web/
+https://www.baeldung.com/spring-security-jdbc-authentication
+https://www.youtube.com/watch?v=0JHIME7uGOk
