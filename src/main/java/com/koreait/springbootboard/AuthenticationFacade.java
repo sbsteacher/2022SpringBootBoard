@@ -7,19 +7,21 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
-@Component
+@Component("authFacade")
 public class AuthenticationFacade {
 
     @Autowired private UserMapper mapper;
 
     public UserEntity getLoginUser() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if(auth == null) { return null; }
         String uid = auth.getName();
         UserEntity entity = new UserEntity();
         entity.setUid(uid);
-        return mapper.selUser(entity);
+        UserEntity loginUser = mapper.selUser(entity);
+        loginUser.setUpw(null);
+        return loginUser;
     }
-
 
     public int getLoginUserPk() {
         return getLoginUser().getIuser();

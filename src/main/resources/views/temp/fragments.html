@@ -8,8 +8,14 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-sm-8 col-md-7 py-4">
-                                <h4 class="text-white">Board</h4>
-                                <p class="text-muted">Spring Boot Board</p>
+                                <th:block sec:authorize="isAuthenticated()">
+                                    <h4 th:text="${@authFacade.getLoginUser().getNm()}" class="text-white"></h4>
+                                    <p class="text-muted">환영합니다.</p>
+                                </th:block>
+                                <th:block sec:authorize="isAnonymous()">
+                                    <h4 class="text-white">Board</h4>
+                                    <p class="text-muted">Spring Boot Board</p>
+                                </th:block>
                             </div>
                             <div class="col-sm-4 offset-md-1 py-4">
                                 <h4 class="text-white">Menus</h4>
